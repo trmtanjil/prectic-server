@@ -30,7 +30,17 @@ async function run() {
     const usersCollection = client.db('usersDB').collection('users');
 
 
+
+    //http://localhost:5000/users?searchParams =text
     app.get('/users',async(req, res)=>{
+      const {searchParams} = req.query;
+      console.log(searchParams)
+
+      // const query = {}
+      // if(searchParams){
+      //   query = {name: {$regex: searchParams, $options:"i"}};
+      // }
+
       const result = await  usersCollection.find().toArray();
       res.send(result)
     })
@@ -63,13 +73,13 @@ async function run() {
       console.log(result)
     })
 
-    app.delete('/users/:id',async(req,res)=>{
-      const id = req.params.id;
-      const query = {_id: new ObjectId(id)};
-      const result = await usersCollection.deleteOne(query)
-      res.send(result)
+    // app.delete('/users/:id',async(req,res)=>{
+    //   const id = req.params.id;
+    //   const query = {_id: new ObjectId(id)};
+    //   const result = await usersCollection.deleteOne(query)
+    //   res.send(result)
       
-    })
+    // })
 
 
 
